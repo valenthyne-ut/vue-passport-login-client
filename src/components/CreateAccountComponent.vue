@@ -7,6 +7,10 @@ const password = ref<string | undefined>(undefined);
 
 <template>
 	<div>
+		<label for="role_select_admin">Admin</label>
+		<input type="radio" name="role_select" id="role_select_admin" value="admin">
+		<label for="role_select_user">User</label>
+		<input type="radio" name="role_select" id="role_select_user" value="user"><br>
 		<button type="button">Create new account</button>
 		<div class="account-details" v-if="username && password">
 			<br>Account details:
