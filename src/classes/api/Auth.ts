@@ -1,5 +1,5 @@
 import type { User } from "../User";
-import { BaseAPI } from "./Base.api";
+import { BaseAPI } from ".";
 
 export class AuthAPI extends BaseAPI {
 	constructor() {
