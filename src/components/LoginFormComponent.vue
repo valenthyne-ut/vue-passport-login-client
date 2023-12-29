@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { AuthAPI } from "@/classes/api/Auth.api";
+import { AuthAPI } from "@/classes/api/Auth";
 
 const username = ref<string>("");
 const password = ref<string>("");
