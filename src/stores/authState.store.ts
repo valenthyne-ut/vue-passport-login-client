@@ -4,7 +4,8 @@ import { ref } from "vue";
 
 export const useAuthStateStore = defineStore("authState", () => {
 	const authenticated = ref(false);
+	const jwtToken = ref("");
 	const user = ref<User | undefined>(undefined);
 
-	return { authenticated, user };
+	return { authenticated, jwtToken, user };
 });
