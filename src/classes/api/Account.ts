@@ -4,6 +4,7 @@ export interface CreateAccountResponse {
 	username: string;
 	password: string;
 	roles: Array<string>;
+	error?: string;
 }
 
 export class AccountAPI extends BaseAPI {
@@ -11,7 +12,7 @@ export class AccountAPI extends BaseAPI {
 		super(BaseAPI.BASEAPI_DEFAULT_PATH_STRING + "/account");
 	}
 
-	async createAccount(role: string): Promise<CreateAccountResponse | string> {
+	async createAccount(role: string): Promise<CreateAccountResponse> {
 		const requestData = JSON.stringify({ 
 			"role": role 
 		});
@@ -26,8 +27,7 @@ export class AccountAPI extends BaseAPI {
 		if(response.ok) { 
 			return await response.json();
 		} else {
-			return await response.text();
+			throw new Error((await response.json() as CreateAccountResponse).error);
 		}
-
 	}
 }

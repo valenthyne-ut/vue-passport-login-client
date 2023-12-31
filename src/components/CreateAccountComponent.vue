@@ -13,15 +13,11 @@ const createNewAccount = async () => {
 	errorText.value = "";
 	try {
 		const result = await accountAPI.createAccount(selectedRole.value);
-		if(typeof result === "string") {
-			errorText.value = result;
-		} else {
-			username.value = result.username;
-			password.value = result.password;
-			roles.value = result.roles;
-		}
+		username.value = result.username;
+		password.value = result.password;
+		roles.value = result.roles;
 	} catch(error) {
-		console.log(error);
+		errorText.value = error as string;
 	}
 };
 </script>
