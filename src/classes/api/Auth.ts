@@ -7,6 +7,14 @@ export interface LoginResponse {
 	error?: string;
 }
 
+export interface GetAuthDetailsResponse {
+	user: {
+		name: string;
+		roles: Array<string>;
+	},
+	error?: string
+}
+
 export class AuthAPI extends BaseAPI {
 	constructor() {
 		super(BaseAPI.BASEAPI_DEFAULT_PATH_STRING + "/auth");
@@ -29,6 +37,21 @@ export class AuthAPI extends BaseAPI {
 			return await response.json();
 		} else {
 			throw new Error((await response.json() as LoginResponse).error);
+		}
+	}
+
+	async getAuthDetails(jwtToken: string): Promise<GetAuthDetailsResponse> {
+		const requestOptions: RequestInit = {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${jwtToken}`
+			}
+		};
+		const response = await fetch(this.apiPath, requestOptions);
+		if(response.ok) {
+			return await response.json();
+		} else {
+			throw new Error((await response.json() as GetAuthDetailsResponse).error);
 		}
 	}
 }
