@@ -24,6 +24,7 @@ onBeforeMount(async () => {
 			localStorage.removeItem("jwtToken");
 			router.push({ path: "/" });
 		} catch(error) {
+			localStorage.removeItem("jwtToken");
 			console.log(error);
 		}
 	}
