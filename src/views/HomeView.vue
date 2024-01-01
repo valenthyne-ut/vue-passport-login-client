@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AuthAPI } from "@/classes/api/Auth";
+import LogoutButtonComponent from "@/components/LogoutButtonComponent.vue";
 import { useAuthStateStore } from "@/stores/authState.store";
 import { onMounted, ref } from "vue";
 
@@ -34,6 +35,7 @@ onMounted(async () => {
 			<strong>Roles:</strong> <ul><li v-for="role, index in roles" :key="index">{{ role }}</li></ul>
 		</span>
 		</div>
+		<LogoutButtonComponent/>
 	</main>
 </template>
 
