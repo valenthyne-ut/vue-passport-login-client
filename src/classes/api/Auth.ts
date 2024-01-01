@@ -7,6 +7,10 @@ export interface LoginResponse {
 	error?: string;
 }
 
+export interface LogoutResponse {
+	error?: string;
+}
+
 export interface GetAuthDetailsResponse {
 	user: {
 		name: string;
@@ -38,6 +42,10 @@ export class AuthAPI extends BaseAPI {
 		} else {
 			throw new Error((await response.json() as LoginResponse).error);
 		}
+	}
+
+	async logout(jwtToken: string): Promise<LogoutResponse> {
+		throw new Error("Not implemented");
 	}
 
 	async getAuthDetails(jwtToken: string): Promise<GetAuthDetailsResponse> {
