@@ -45,7 +45,18 @@ export class AuthAPI extends BaseAPI {
 	}
 
 	async logout(jwtToken: string): Promise<LogoutResponse> {
-		throw new Error("Not implemented");
+		const requestOptions: RequestInit = {
+			method: "POST",
+			headers: {
+				"Authorization": `Bearer ${jwtToken}`
+			}
+		};
+		const response = await fetch(this.apiPath + "/logout", requestOptions);
+		if(response.ok) {
+			return {};
+		} else {
+			throw new Error((await response.json() as LogoutResponse).error);
+		}
 	}
 
 	async getAuthDetails(jwtToken: string): Promise<GetAuthDetailsResponse> {
