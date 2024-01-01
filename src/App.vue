@@ -8,8 +8,10 @@ const authAPI = new AuthAPI();
 const authStore = useAuthStateStore();
 
 onBeforeMount(async () => {
-	window.addEventListener("beforeunload", () => {
-		if(authStore.jwtToken) { localStorage.setItem("jwtToken", authStore.jwtToken); }
+	document.addEventListener("visibilitychange", () => {
+		if(document.visibilityState == "hidden" && authStore.jwtToken) { 
+			localStorage.setItem("jwtToken", authStore.jwtToken); 
+		}
 	});
 
 	const jwtToken = localStorage.getItem("jwtToken");
