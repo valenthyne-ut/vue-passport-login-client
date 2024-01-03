@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { AuthAPI } from "@/classes/api/Auth";
-import LogoutButtonComponent from "@/components/LogoutButtonComponent.vue";
-import { useAuthStateStore } from "@/stores/authState.store";
-import { onMounted, ref } from "vue";
+	import { AuthAPI } from "@/classes/api/Auth";
+	import LogoutButtonComponent from "@/components/LogoutButtonComponent.vue";
+	import { useAuthStateStore } from "@/stores/authState.store";
+	import { onMounted, ref } from "vue";
 
-const username = ref<string>("");
-const roles = ref<Array<string>>([]);
-const errorText = ref<string>("");
+	const username = ref<string>("");
+	const roles = ref<Array<string>>([]);
+	const errorText = ref<string>("");
 
-const authAPI = new AuthAPI();
-const authStore = useAuthStateStore();
+	const authAPI = new AuthAPI();
+	const authStore = useAuthStateStore();
 
-onMounted(async () => {
-	errorText.value = "";
-	try {
-		const result = await authAPI.getAuthDetails(authStore.jwtToken);
-		username.value = result.user.name;
-		roles.value = result.user.roles;
-	} catch(error) {
-		errorText.value = error as string;
-	}
-});	
+	onMounted(async () => {
+		errorText.value = "";
+		try {
+			const result = await authAPI.getAuthDetails(authStore.jwtToken);
+			username.value = result.user.name;
+			roles.value = result.user.roles;
+		} catch(error) {
+			errorText.value = error as string;
+		}
+	});	
 </script>
 
 <template>

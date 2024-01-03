@@ -19,6 +19,12 @@ module.exports = {
 			"parserOptions": {
 				"sourceType": "script"
 			}
+		},
+		{
+			"files": ["*.vue"],
+			"rules": {
+				"indent": "off"
+			}
 		}
 	],
 	"parserOptions": {
@@ -46,6 +52,13 @@ module.exports = {
 		"semi": [
 			"error",
 			"always"
+		],
+		"vue/script-indent": [
+			"error",
+			"tab",
+			{
+				"baseIndent": 1
+			}
 		]
 	}
 };

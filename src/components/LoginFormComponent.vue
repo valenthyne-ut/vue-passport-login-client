@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { AuthAPI } from "@/classes/api/Auth";
-import { useAuthStateStore } from "@/stores/authState.store";
-import router from "@/router";
+	import { ref } from "vue";
+	import { AuthAPI } from "@/classes/api/Auth";
+	import { useAuthStateStore } from "@/stores/authState.store";
+	import router from "@/router";
 
-const username = ref<string>("");
-const password = ref<string>("");
-const errorText = ref<string>("");
+	const username = ref<string>("");
+	const password = ref<string>("");
+	const errorText = ref<string>("");
 
-const authApi = new AuthAPI();
-const authStore = useAuthStateStore();
+	const authAPI = new AuthAPI();
+	const authStore = useAuthStateStore();
 
-const attemptLogin = async () => {
-	try {
-		const response = await authApi.login(username.value, password.value);
-		
-		authStore.authenticated = true;
-		authStore.jwtToken = response.jwtToken;
-		authStore.user = response.user;
+	const attemptLogin = async () => {
+		try {
+			const response = await authAPI.login(username.value, password.value);
+			
+			authStore.authenticated = true;
+			authStore.jwtToken = response.jwtToken;
+			authStore.user = response.user;
 
-		router.push({ path: "/" });
-	} catch(error) {
-		errorText.value = error as string;
-	}
-};
+			router.push({ path: "/" });
+		} catch(error) {
+			errorText.value = error as string;
+		}
+	};
 </script>
 
 <template>

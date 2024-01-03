@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CreateAccountComponent from "@/components/CreateAccountComponent.vue";
+	import CreateAccountComponent from "@/components/CreateAccountComponent.vue";
 </script>
 
 <template>

@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { AccountAPI } from "@/classes/api/Account";
-import { ref } from "vue";
+	import { AccountAPI } from "@/classes/api/Account";
+	import { ref } from "vue";
 
-const username = ref<string>("");
-const password = ref<string>("");
-const roles = ref<string[]>([]);
-const selectedRole = ref<string>("unselected");
-const errorText = ref<string>("");
+	const username = ref<string>("");
+	const password = ref<string>("");
+	const roles = ref<string[]>([]);
+	const selectedRole = ref<string>("unselected");
+	const errorText = ref<string>("");
 
-const accountAPI = new AccountAPI();
-const createNewAccount = async () => {
-	errorText.value = "";
-	try {
-		const result = await accountAPI.createAccount(selectedRole.value);
-		username.value = result.username;
-		password.value = result.password;
-		roles.value = result.roles;
-	} catch(error) {
-		errorText.value = error as string;
-	}
-};
+	const accountAPI = new AccountAPI();
+	const createNewAccount = async () => {
+		errorText.value = "";
+		try {
+			const result = await accountAPI.createAccount(selectedRole.value);
+			username.value = result.username;
+			password.value = result.password;
+			roles.value = result.roles;
+		} catch(error) {
+			errorText.value = error as string;
+		}
+	};
 </script>
 
 <template>
