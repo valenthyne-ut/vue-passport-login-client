@@ -18,24 +18,32 @@
 			username.value = result.user.name;
 			roles.value = result.user.roles;
 		} catch(error) {
-			errorText.value = error as string;
+			if(error instanceof Error) {
+				errorText.value = error.message;
+			} else if(typeof error === "string") {
+				errorText.value = error;
+			}
 		}
 	});	
 </script>
 
 <template>
-	<main>
-		<p class="error-message">{{ errorText }}</p>
-		<div class="account-details" v-if="username && roles">
-		<br>Your account details:<br>
-		<span>
-			<strong>Username:</strong> {{ username }}
-		</span><br>		
-		<span>
-			<strong>Roles:</strong> <ul><li v-for="role, index in roles" :key="index">{{ role }}</li></ul>
-		</span>
+	<main class="h-screen flex justify-center items-center">
+		<div class="w-96 bg-white p-7 rounded-sm shadow-sm">
+			<div class="bg-red-200 border rounded border-red-400 text-center p-4 mb-4" v-if="errorText">
+				<span class="text-red-950">{{ errorText }}</span>
+			</div>
+			<h1 class="text-2xl font-medium text-center">Your account details</h1>
+			<div class="flex flex-col mt-4">
+				<span>
+					<strong>Username: </strong> {{ username }}
+				</span>
+				<span>
+					<strong>Role(s): </strong> {{ roles.join(", ") }}
+				</span>
+			</div>
+			<LogoutButtonComponent/>
 		</div>
-		<LogoutButtonComponent/>
 	</main>
 </template>
 

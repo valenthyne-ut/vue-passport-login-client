@@ -22,5 +22,5 @@
 </script>;
 
 <template>
-	<button @click="logout">Logout</button>
+	<button class="w-full rounded-md bg-red-600 text-white text-xl py-2 mt-4 mb-2" @click="logout">Logout</button>
 </template>
