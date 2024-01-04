@@ -12,6 +12,7 @@
 	const authStore = useAuthStateStore();
 
 	const attemptLogin = async () => {
+		errorText.value = "";
 		try {
 			const response = await authAPI.login(username.value, password.value);
 			
@@ -21,24 +22,32 @@
 
 			router.push({ path: "/" });
 		} catch(error) {
-			errorText.value = error as string;
+			if(error instanceof Error) {
+				errorText.value = error.message;
+			} else if(typeof error === "string") {
+				errorText.value = error;
+			}
 		}
 	};
 </script>
 
 <template>
-	<form>
-		<p class="error-message">{{ errorText }}</p>
-		<label for="username">Username</label><br>
-		<input type="text" name="username" v-model="username"><br><br>
-		<label for="password">Password</label><br>
-		<input type="password" name="password" v-model="password"><br><br>
-		<button type="button" @click="attemptLogin">Submit</button>
-	</form>
+	<div class="h-screen flex justify-center items-center">
+		<form class="w-96 bg-white p-6 rounded-md shadow-sm">
+			<div class="bg-red-200 border rounded border-red-400 text-center p-4 mb-4" v-if="errorText">
+				<span class="text-red-950">{{ errorText }}</span>
+			</div>
+			<h1 class="text-2xl font-medium text-center">Login</h1>
+			<div class="flex flex-col mt-4">
+				<label class="hidden" for="username">Username</label>
+				<input class="border rounded px-2 py-2 outline outline-4 outline-transparent focus:outline-blue-500/75" type="text" id="username" name="username" placeholder="Username" v-model="username">
+			</div>
+			<div class="flex flex-col mt-1">
+				<label class="hidden" for="password">Password</label>
+				<input class="border rounded px-2 py-2 outline outline-4 outline-transparent focus:outline-blue-500/75" type="password" id="password" name="password" placeholder="Password" v-model="password">
+			</div>
+			<button class="w-full border rounded-md bg-blue-600 text-white text-xl py-2 mt-4 mb-2" type="button" @click="attemptLogin">Submit</button>
+			<RouterLink class="inline-block text-sm text-blue-500 mt-1" to="create_account">Create account</RouterLink>
+		</form>
+	</div>
 </template>
-
-<style scoped>
-p.error-message {
-	color: red;
-}
-</style>
